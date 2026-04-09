@@ -1,0 +1,317 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Mail, MapPin, Phone, ShieldCheck, FlaskConical } from "lucide-react";
+
+const neutral = {
+  bg: "#F5F2EB",
+  card: "#FFFFFF",
+  text: "#1F2937",
+  muted: "#64748B",
+  border: "rgba(31,41,55,0.10)",
+  hero1: "#EDE7DA",
+  hero2: "#D8D2C3",
+  pill: "#FFFFFF",
+  accent: "#6B7280",
+};
+
+const themes = {
+  vlsl: {
+    bg: "#F6F7FA",
+    card: "#FFFFFF",
+    text: "#1F2937",
+    muted: "#64748B",
+    border: "rgba(31,41,55,0.10)",
+    hero1: "#EEF3FB",
+    hero2: "#E2E8F6",
+    accent: "#F97316",
+    deep: "#334155",
+  },
+  lido: {
+    bg: "#F8F7F2",
+    card: "#FFFFFF",
+    text: "#1F2937",
+    muted: "#64748B",
+    border: "rgba(79,93,67,0.10)",
+    hero1: "#EEF0E6",
+    hero2: "#D8D2C3",
+    accent: "#4F5D43",
+    deep: "#4F5D43",
+  }
+};
+
+const companyData = {
+  vlsl: {
+    name: "Vipul Life Science Limited",
+    sub: "Your Global Partner in Pharmaceutical Intermediates",
+    logo: "/logos/vlsl-logo.png",
+    hero: "A long-standing specialty chemicals business serving the pharmaceutical sector with quality, technical understanding, and dependable execution.",
+    about: "Vipul Life Science Limited traces its roots to 1952 and entered the pharmaceutical field in 1990. Over the years, the business expanded from trading and importing solvents and basic chemicals into a broader specialty chemicals and API intermediates platform, supported by customer-led development and reliable sourcing.",
+    highlights: [
+      "Serving the pharmaceutical sector since 1990",
+      "Roots tracing back to 1952",
+      "Specialty chemicals and API intermediates focus",
+      "R&D-led product technology development",
+    ],
+    capabilities: [
+      "Pharmaceutical Intermediates",
+      "Specialty Chemicals",
+      "Solvents & Basic Chemicals",
+      "Customer-Led Development",
+    ],
+    approach: [
+      "Integrity and transparency in every interaction",
+      "Quality aligned with stringent standards",
+      "Customer focus and solution orientation",
+      "Reliable sourcing and supply support",
+      "On-time delivery with responsive execution",
+      "Trusted third-party manufacturing partnerships",
+    ],
+    productsIntro: "Selected areas include pharmaceutical intermediates, solvents, and specialty chemicals across therapeutic and industrial use cases.",
+    products: ["Pharmaceutical Intermediates","Specialty Chemical Intermediates","Solvents","Basic & Performance Chemicals"],
+    leaders: [["Sunil Sheth","Director"],["Vipul Sheth","Director"],["Parshwa Sheth","Next Generation Leadership"],["Dewal Sheth","Next Generation Leadership"]],
+    contact: {
+      email: "ds@vipullife.com",
+      phone: "+91 85917 44209",
+      address: "205/206, BPS Plaza, BPS Estate, Devidayal Road, Mulund (W), Mumbai 400080, India",
+    },
+  },
+  lido: {
+    name: "Lido Chem LLP",
+    sub: "Chemistry. Trust. Innovation.",
+    logo: "/logos/lido-logo.png",
+    hero: "A modern sourcing and specialty chemicals platform built around trust, transparency, strong relationships, and dependable supply.",
+    about: "Lido Chem LLP is positioned as a customer-focused chemical sourcing and supply business supporting import, distribution, and commercial execution. The identity is built to communicate reliability, professionalism, and a clear commitment to long-term business relationships.",
+    highlights: [
+      "Customer-first approach",
+      "Transparent and relationship-led business style",
+      "Focus on sourcing and dependable supply",
+      "Premium, professional market presentation",
+    ],
+    capabilities: [
+      "Specialty Chemical Sourcing",
+      "Imports & Distribution",
+      "Commercial Supply Support",
+      "Responsive Customer Service",
+    ],
+    approach: [
+      "Trust as the basis of long-term partnerships",
+      "Transparency in commitments and communication",
+      "Quality-first sourcing mindset",
+      "On-time delivery and dependable follow-through",
+      "Flexible response to customer requirements",
+      "Professional execution from inquiry to supply",
+    ],
+    productsIntro: "The business is positioned to support speciality chemical sourcing, imports, and supply relationships across customer-driven requirements.",
+    products: ["Imported Speciality Chemicals","Sourcing Solutions","Commercial Supply Support","Distribution-Oriented Execution"],
+    leaders: [["Parshwa Sheth","Partner"],["Dewal Sheth","Partner"]],
+    contact: {
+      email: "business@yourcompany.com",
+      phone: "+91 XXXXX XXXXX",
+      address: "India",
+    },
+  }
+};
+
+function Header({ onHome, theme }) {
+  return (
+    <header style={{position:"sticky",top:0,zIndex:50,background:"rgba(255,255,255,0.82)",backdropFilter:"blur(12px)",borderBottom:`1px solid ${theme.border}`}}>
+      <div className="page-wrap header-wrap" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto",padding:"18px 0",display:"flex",alignItems:"center",justifyContent:"space-between",gap:20}}>
+        <button onClick={onHome} style={{background:"#fff",border:`1px solid ${theme.border}`,borderRadius:999,padding:"10px 16px",fontWeight:700,color:theme.deep,cursor:"pointer"}}>
+          ← Home
+        </button>
+      </div>
+    </header>
+  );
+}
+
+function CompanyView({ company, onHome }) {
+  const data = companyData[company];
+  const theme = themes[company];
+  return (
+    <main style={{ background: theme.bg, color: theme.text }}>
+      <Header onHome={onHome} theme={theme} />
+      <section className="hero-grid" style={{background:`linear-gradient(135deg, ${theme.hero1} 0%, ${theme.hero2} 100%)`,position:"relative",overflow:"hidden"}}>
+        <div className="page-wrap hero-grid" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto",minHeight:680,display:"grid",gridTemplateColumns:"1.08fr 0.92fr",gap:30,alignItems:"center",padding:"70px 0"}}>
+          <div>
+            <div style={{display:"inline-flex",alignItems:"center",gap:10,background:"#fff",border:`1px solid ${theme.border}`,color:theme.deep,borderRadius:999,padding:"10px 16px",fontSize:14,fontWeight:700}}>
+              {data.sub}
+            </div>
+            <h1 style={{color:theme.text,fontSize:"clamp(42px, 6vw, 78px)",lineHeight:0.96,letterSpacing:"-0.05em",margin:"22px 0 0",maxWidth:760}}>
+              {data.name}
+            </h1>
+            <p style={{color:theme.muted,fontSize:18,lineHeight:1.9,maxWidth:720,marginTop:24}}>
+              {data.hero}
+            </p>
+            <div style={{display:"grid",gap:12,marginTop:28,maxWidth:620}}>
+              {data.highlights.map((item)=>(
+                <div key={item} style={{display:"flex",alignItems:"center",gap:10,color:theme.text,fontWeight:600}}>
+                  <ShieldCheck size={16} color={theme.accent} /> {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{background:"#fff",borderRadius:30,padding:24,boxShadow:"0 24px 60px rgba(31,41,55,0.10)",display:"flex",alignItems:"center",justifyContent:"center",minHeight:340,border:`1px solid ${theme.border}`}}>
+            <img src={data.logo} alt={data.name} style={{maxHeight:280,width:"100%",objectFit:"contain"}} />
+          </div>
+        </div>
+      </section>
+
+      <section id="about" style={{padding:"88px 0",background:theme.bg}}>
+        <div className="page-wrap about-grid" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto",display:"grid",gridTemplateColumns:"0.92fr 1.08fr",gap:28}}>
+          <div>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:theme.accent}}>About</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              Built for quality, relationships, and dependable business execution.
+            </h2>
+          </div>
+          <div style={{background:theme.card,border:`1px solid ${theme.border}`,borderRadius:28,padding:30,boxShadow:"0 10px 24px rgba(31,41,55,0.05)"}}>
+            <p style={{margin:0,color:theme.muted,lineHeight:1.9}}>{data.about}</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="capabilities" style={{padding:"88px 0",background:company==="vlsl" ? "#FFF7ED" : theme.hero2}}>
+        <div className="page-wrap" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto"}}>
+          <div style={{textAlign:"center",maxWidth:760,margin:"0 auto"}}>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:theme.accent}}>Capabilities</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              Focused capabilities presented with clarity and confidence.
+            </h2>
+          </div>
+          <div className="caps-grid" style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:18,marginTop:36}}>
+            {data.capabilities.map((item)=>(
+              <div key={item} style={{background:"#fff",border:`1px solid ${theme.border}`,borderRadius:22,padding:24,boxShadow:"0 10px 24px rgba(31,41,55,0.05)",fontWeight:700}}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="approach" style={{padding:"88px 0",background:theme.bg}}>
+        <div className="page-wrap" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto"}}>
+          <div style={{textAlign:"center",maxWidth:760,margin:"0 auto"}}>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:theme.accent}}>Our Approach</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              Customer focus, trust, quality, and transparency at the core.
+            </h2>
+          </div>
+          <div className="approach-grid" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:18,marginTop:36}}>
+            {data.approach.map((item)=>(
+              <div key={item} style={{background:"#fff",border:`1px solid ${theme.border}`,borderRadius:22,padding:22,boxShadow:"0 10px 24px rgba(31,41,55,0.05)",color:theme.muted,lineHeight:1.8,fontWeight:600}}>
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{padding:"88px 0",background:company==="vlsl" ? "#F8FAFC" : theme.hero2}}>
+        <div className="page-wrap" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto",display:"grid",gridTemplateColumns:"0.92fr 1.08fr",gap:28,alignItems:"start"}}>
+          <div>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:theme.accent}}>Products</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              A clear industry profile without overwhelming detail.
+            </h2>
+            <p style={{color:theme.muted,lineHeight:1.9,marginTop:16}}>{data.productsIntro}</p>
+          </div>
+          <div style={{background:"#fff",border:`1px solid ${theme.border}`,borderRadius:28,padding:26,boxShadow:"0 10px 24px rgba(31,41,55,0.05)",display:"grid",gap:14}}>
+            {data.products.map((item)=>(
+              <div key={item} style={{display:"flex",alignItems:"center",gap:12,fontWeight:700}}>
+                <FlaskConical size={18} color={theme.accent} /> {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="leadership" style={{padding:"88px 0",background:theme.bg}}>
+        <div className="page-wrap" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto"}}>
+          <div style={{textAlign:"center",maxWidth:760,margin:"0 auto"}}>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:theme.accent}}>Leadership</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              Leadership connected to continuity, growth, and accountability.
+            </h2>
+          </div>
+          <div className="leaders-grid" style={{display:"grid",gridTemplateColumns:`repeat(${data.leaders.length},1fr)`,gap:18,marginTop:36}}>
+            {data.leaders.map(([name,role])=>(
+              <div key={name} style={{background:"#fff",border:`1px solid ${theme.border}`,borderRadius:22,padding:24,boxShadow:"0 10px 24px rgba(31,41,55,0.05)"}}>
+                <div style={{fontSize:22,fontWeight:700}}>{name}</div>
+                <div style={{color:theme.muted,marginTop:8,fontSize:14}}>{role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" style={{padding:"88px 0",background:theme.deep,color:"white"}}>
+        <div className="page-wrap contact-grid" style={{width:"min(1240px, calc(100% - 48px))",margin:"0 auto",display:"grid",gridTemplateColumns:"1.08fr 0.92fr",gap:28}}>
+          <div>
+            <div style={{fontSize:12,fontWeight:800,letterSpacing:".2em",textTransform:"uppercase",color:"rgba(255,255,255,0.75)"}}>Contact</div>
+            <h2 style={{fontSize:"clamp(30px,4vw,48px)",lineHeight:1.05,letterSpacing:"-0.04em",marginTop:12,marginBottom:0}}>
+              Built to support strong customer relationships and clear communication.
+            </h2>
+          </div>
+          <div style={{background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.10)",borderRadius:24,padding:26,display:"grid",gap:14}}>
+            <div style={{display:"flex",alignItems:"center",gap:10}}><Mail size={16} /> {data.contact.email}</div>
+            <div style={{display:"flex",alignItems:"center",gap:10}}><Phone size={16} /> {data.contact.phone}</div>
+            <div style={{display:"flex",alignItems:"center",gap:10}}><MapPin size={16} /> {data.contact.address}</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default function Page() {
+  const [selected, setSelected] = useState(null);
+
+  if (selected) return <CompanyView company={selected} onHome={() => setSelected(null)} />;
+
+  return (
+    <main style={{ minHeight: "100vh", background: neutral.bg, color: neutral.text }}>
+      <section style={{minHeight:"100vh",background:`linear-gradient(135deg, ${neutral.hero1} 0%, ${neutral.hero2} 100%)`,position:"relative",overflow:"hidden",display:"flex",alignItems:"center"}}>
+        <div style={{position:"absolute",inset:0,background:"radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 24%), radial-gradient(circle at right, rgba(255,255,255,0.14), transparent 30%)"}} />
+        <div className="page-wrap" style={{width:"min(1280px, calc(100% - 48px))",margin:"0 auto",position:"relative",padding:"70px 0"}}>
+          <motion.div initial={{opacity:0,y:18}} animate={{opacity:1,y:0}} transition={{duration:0.6}} style={{textAlign:"center",maxWidth:980,margin:"0 auto"}}>
+            <div style={{display:"inline-flex",alignItems:"center",gap:10,background:neutral.pill,border:`1px solid ${neutral.border}`,color:neutral.accent,borderRadius:999,padding:"10px 16px",fontSize:14,fontWeight:700}}>
+              Group Website
+            </div>
+            <h1 style={{color:neutral.text,fontSize:"clamp(42px, 6vw, 84px)",lineHeight:0.94,letterSpacing:"-0.05em",margin:"22px 0 0"}}>
+              Two companies. One standard of excellence.
+            </h1>
+            <p style={{color:neutral.muted,fontSize:18,lineHeight:1.9,maxWidth:820,margin:"24px auto 0"}}>
+              Explore Vipul Life Science Limited and Lido Chem LLP — built on trust, quality, and long-term partnerships.
+            </p>
+          </motion.div>
+
+          <div className="landing-grid" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:26,marginTop:50}}>
+            <motion.button whileHover={{y:-6,scale:1.01}} whileTap={{scale:0.995}} onClick={() => setSelected("vlsl")} style={{background:"#fff",border:`1px solid ${neutral.border}`,borderRadius:30,padding:34,textAlign:"left",boxShadow:"0 24px 60px rgba(31,41,55,0.10)",cursor:"pointer"}}>
+              <div style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:260,overflow:"hidden"}}>
+                <img src="/logos/vlsl-logo.png" alt="Vipul Life Science Limited" style={{maxHeight:260,width:"100%",objectFit:"contain"}} />
+              </div>
+              <div style={{marginTop:18,fontSize:30,fontWeight:800,color:neutral.text}}>Vipul Life Science Limited</div>
+              <div style={{marginTop:10,color:neutral.muted,lineHeight:1.8}}>Pharmaceutical intermediates, specialty chemicals, solvents</div>
+              <div style={{marginTop:18,display:"inline-flex",alignItems:"center",gap:8,color:"#F97316",fontWeight:800}}>
+                Enter VLSL <ArrowRight size={16} />
+              </div>
+            </motion.button>
+
+            <motion.button whileHover={{y:-6,scale:1.01}} whileTap={{scale:0.995}} onClick={() => setSelected("lido")} style={{background:"#fff",border:`1px solid ${neutral.border}`,borderRadius:30,padding:34,textAlign:"left",boxShadow:"0 24px 60px rgba(31,41,55,0.10)",cursor:"pointer"}}>
+              <div style={{display:"flex",justifyContent:"center",alignItems:"center",minHeight:260,overflow:"hidden"}}>
+                <img src="/logos/lido-logo.png" alt="Lido Chem LLP" style={{maxHeight:260,width:"100%",objectFit:"contain"}} />
+              </div>
+              <div style={{marginTop:18,fontSize:30,fontWeight:800,color:neutral.text}}>Lido Chem LLP</div>
+              <div style={{marginTop:10,color:neutral.muted,lineHeight:1.8}}>Trust-led sourcing, transparency, quality, on-time delivery</div>
+              <div style={{marginTop:18,display:"inline-flex",alignItems:"center",gap:8,color:"#4F5D43",fontWeight:800}}>
+                Enter Lido Chem <ArrowRight size={16} />
+              </div>
+            </motion.button>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
